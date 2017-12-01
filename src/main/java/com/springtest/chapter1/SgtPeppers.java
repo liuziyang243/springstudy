@@ -1,4 +1,4 @@
-package com.springtest.chaper1;
+package com.springtest.chapter1;
 
 import org.springframework.stereotype.Component;
 
