@@ -1,5 +1,8 @@
 package com.springtest.chapter10;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +18,7 @@ import java.sql.SQLException;
  */
 @Repository
 public class JdbcSpitterRepository implements OriginalSpitterRepository {
+
     private JdbcOperations jdbcOperations;
 
     @Inject
@@ -23,20 +27,35 @@ public class JdbcSpitterRepository implements OriginalSpitterRepository {
     }
 
     @Override
+    @CachePut(value = "spittleCache", key = "#spitter.id")
     public void addSpitter(Spitter spitter) {
-        String INSERT_SPITTER = "INSERT INTO PUBLIC.SPITTER (USERNAME, PASSWORD, FULLNAME, EMAIL, UPDATEBYEMAIL) VALUES (?,?,?,?,?)";
+        String INSERT_SPITTER = "INSERT INTO PUBLIC.SPITTER (USERNAME, PASSWORD, FULLNAME, EMAIL, UPDATEBYEMAIL, GENDER) VALUES (?,?,?,?,?,?)";
         jdbcOperations.update(INSERT_SPITTER,
                 spitter.getUsername(),
                 spitter.getPassword(),
                 spitter.getFullName(),
                 spitter.getEmail(),
-                spitter.isUpdateByEmail());
+                spitter.isUpdateByEmail(),
+                spitter.getGender());
     }
 
     @Override
+    @Cacheable("spittleCache")
     public Spitter findOne(long id) {
         String SELECT_SPITTER_BY_ID = "SELECT * FROM PUBLIC.SPITTER WHERE ID=?";
-        return jdbcOperations.queryForObject(SELECT_SPITTER_BY_ID, this::mapSpitter, id);
+        try {
+            return jdbcOperations.queryForObject(SELECT_SPITTER_BY_ID, this::mapSpitter, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    @CacheEvict("spittleCache")
+    public void remove(long id) {
+        String DELETE_SPITTER_BY_ID = "DELETE FROM PUBLIC.SPITTER WHERE ID=?";
+        jdbcOperations.update(DELETE_SPITTER_BY_ID, id);
     }
 
     private Spitter mapSpitter(ResultSet rs, int row) throws SQLException {
@@ -47,7 +66,8 @@ public class JdbcSpitterRepository implements OriginalSpitterRepository {
                     rs.getString("password"),
                     rs.getString("fullName"),
                     rs.getString("email"),
-                    rs.getBoolean("updateByEmail"));
+                    rs.getBoolean("updateByEmail"),
+                    Enum.valueOf(Gender.class, rs.getString("gender")));
         }
         return null;
     }

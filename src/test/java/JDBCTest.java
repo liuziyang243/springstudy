@@ -10,8 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author lzy
@@ -33,7 +34,7 @@ public class JDBCTest {
     @Test
     public void testFindOne() {
         Spitter spitter = originalSpitterRepository.findOne(1);
-        assertNull(spitter);
+        assertNotNull(spitter);
     }
 
     @Test
@@ -51,6 +52,14 @@ public class JDBCTest {
     @Test
     public void testRepository() {
         List<Spitter> spitters = spitterRepository.findAll();
-        System.out.println(spitters.toString());
+        for (Spitter spitter : spitters) {
+            System.out.println(spitter.toString());
+        }
+    }
+
+    @Test
+    public void testRepositoryFindOne() {
+        Optional<Spitter> spitter = spitterRepository.findById(2L);
+        System.out.println(spitter.toString());
     }
 }

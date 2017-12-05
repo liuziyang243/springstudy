@@ -1,6 +1,7 @@
 package com.springtest.chapter10;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -13,7 +14,8 @@ import javax.sql.DataSource;
  * @version v1.00
  */
 @Configuration
-@Import({JpaConfiguration.class})
+@EnableCaching
+@Import({JpaConfiguration.class, CacheConfig.class})
 @ComponentScan("com.springtest.chapter10")
 public class DAOConfig {
 

@@ -12,8 +12,9 @@ import java.util.List;
  * @version v1.00
  */
 public interface SpitterRepository extends JpaRepository<Spitter, Long> {
+
     Spitter findByUsername(String username);
 
-    @Query("select a from Spitter s where s.email like '%gmail.com'")
+    @Query("select s from Spitter s where s.email like '%gmail.com'")
     List<Spitter> findAllGmailSpitters();
 }
