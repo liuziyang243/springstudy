@@ -45,7 +45,6 @@ public class JDBCTest {
         spitter.setFullName("test");
         spitter.setEmail("test@qq.com");
         spitter.setUpdateByEmail(true);
-
         originalSpitterRepository.addSpitter(spitter);
     }
 
@@ -61,5 +60,10 @@ public class JDBCTest {
     public void testRepositoryFindOne() {
         Optional<Spitter> spitter = spitterRepository.findById(2L);
         System.out.println(spitter.toString());
+    }
+
+    @Test
+    public void testRepositoryDelete() {
+        spitterRepository.deleteById(8L);
     }
 }

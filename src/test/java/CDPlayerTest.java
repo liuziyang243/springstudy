@@ -48,6 +48,7 @@ public class CDPlayerTest {
     @Test
     public void blankCDShouldNotBeNull() {
         assertNotNull(blankcd);
+        blankcd.play();
     }
 
     @Test

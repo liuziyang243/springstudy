@@ -7,5 +7,5 @@ package com.springtest.chapter10;
  * @version v1.00
  */
 public enum Gender {
-    MALE, FEMALE;
+    MALE, FEMALE
 }

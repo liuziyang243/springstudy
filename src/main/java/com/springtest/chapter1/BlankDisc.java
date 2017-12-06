@@ -1,5 +1,6 @@
 package com.springtest.chapter1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,15 @@ public class BlankDisc implements CompactDisc {
     private String title;
     private String artist;
     private List<String> tracks;
+
+    public BlankDisc() {
+    }
+
+    public BlankDisc(String title, String artist) {
+        this.title = title;
+        this.artist = artist;
+        tracks = new ArrayList<>();
+    }
 
     public void setTitle(String title) {
         this.title = title;

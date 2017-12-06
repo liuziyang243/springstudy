@@ -1,5 +1,6 @@
 package com.springtest.chapter1.config;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
@@ -15,5 +16,6 @@ import org.springframework.context.annotation.ImportResource;
         CDPlayerConfig.class,
         ConditionConfig.class})
 @ImportResource("classpath:chapterconfig.xml")
+@ComponentScan(basePackages = "com.springtest.chapter1")
 public class SoundSystemConfig {
 }
