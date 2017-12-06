@@ -1,0 +1,1 @@
+INSERT INTO PUBLIC.TEST (name) VALUES ('test')
