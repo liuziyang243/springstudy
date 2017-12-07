@@ -5,6 +5,8 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.sql.ResultSet;
@@ -17,6 +19,7 @@ import java.sql.SQLException;
  * @version v1.00
  */
 @Repository
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = RuntimeException.class, timeout = 10)
 public class JdbcSpitterRepository implements OriginalSpitterRepository {
 
     private JdbcOperations jdbcOperations;
@@ -27,6 +30,7 @@ public class JdbcSpitterRepository implements OriginalSpitterRepository {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = RuntimeException.class)
     @CachePut(value = "spittleCache", key = "#spitter.id")
     public void addSpitter(Spitter spitter) {
         String INSERT_SPITTER = "INSERT INTO PUBLIC.SPITTER (USERNAME, PASSWORD, FULLNAME, EMAIL, UPDATEBYEMAIL, GENDER) VALUES (?,?,?,?,?,?)";
@@ -52,6 +56,7 @@ public class JdbcSpitterRepository implements OriginalSpitterRepository {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = RuntimeException.class)
     @CacheEvict("spittleCache")
     public void remove(long id) {
         String DELETE_SPITTER_BY_ID = "DELETE FROM PUBLIC.SPITTER WHERE ID=?";

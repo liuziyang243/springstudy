@@ -1,7 +1,7 @@
-import com.springtest.chapter10.DAOConfig;
 import com.springtest.chapter10.OriginalSpitterRepository;
 import com.springtest.chapter10.Spitter;
 import com.springtest.chapter10.SpitterRepository;
+import com.springtest.chapter10.config.DAOConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

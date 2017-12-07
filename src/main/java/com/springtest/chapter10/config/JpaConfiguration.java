@@ -1,4 +1,4 @@
-package com.springtest.chapter10;
+package com.springtest.chapter10.config;
 
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.cache.annotation.EnableCaching;

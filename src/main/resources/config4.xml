@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="audienceProxy" class="com.springtest.chapter4.AudienceProxy"/>
+
+    <bean id="dramaPerformance" class="com.springtest.chapter4.DramaPerformance"/>
+
+    <aop:config>
+        <aop:pointcut id="performance" expression="execution(* com.springtest.chapter4.Performance.perform(..))"/>
+        <aop:aspect ref="audienceProxy">
+
+            <aop:before pointcut-ref="performance" method="silenceCellPhones"/>
+
+            <aop:before method="takeSeats" pointcut-ref="performance"/>
+
+            <aop:after method="applause" pointcut-ref="performance"/>
+
+            <aop:after-throwing method="demandRefund" pointcut-ref="performance"/>
+
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="criticismEngine" class="com.springtest.chapter4.CriticismEngineImpl"/>
+
+    <bean class="com.springtest.chapter4.CriticAspect" factory-method="aspectOf">
+        <property name="criticismEngine" ref="criticismEngine"/>
+    </bean>
+
+    <bean class="com.springtest.chapter4.JudgeAspect" factory-method="aspectOf">
+        <property name="criticismEngine" ref="criticismEngine"/>
+    </bean>
+
+</beans>

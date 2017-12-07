@@ -1,4 +1,4 @@
-package com.springtest.chapter10;
+package com.springtest.chapter10.config;
 
 import net.sf.ehcache.CacheManager;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
