@@ -1,10 +1,11 @@
 package com.springtest.chapter10.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
@@ -15,13 +16,11 @@ import javax.sql.DataSource;
  * @version v1.00
  */
 @Configuration
-@EnableCaching
-@EnableTransactionManagement
 @Import({JpaConfiguration.class, CacheConfig.class})
 @ComponentScan("com.springtest.chapter10")
 public class DAOConfig {
 
-    @Profile("dev")
+    //    @Profile("dev")
     @Bean
     public DataSource getDataSource() {
         DruidDataSource dataSource = new DruidDataSource();

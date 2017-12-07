@@ -5,7 +5,6 @@ import com.springtest.chapter10.config.DAOConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -22,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DAOConfig.class})
-@ActiveProfiles("dev")
+//@ActiveProfiles("dev")
 public class JDBCTest {
 
     @Autowired
@@ -64,6 +63,6 @@ public class JDBCTest {
 
     @Test
     public void testRepositoryDelete() {
-        spitterRepository.deleteById(8L);
+        spitterRepository.deleteById(3L);
     }
 }

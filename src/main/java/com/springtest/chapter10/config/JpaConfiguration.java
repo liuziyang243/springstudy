@@ -26,7 +26,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableCaching
-@EnableJpaRepositories()
+@EnableJpaRepositories(basePackages = "com.springtest.chapter10")
 @EnableTransactionManagement
 public class JpaConfiguration {
 
