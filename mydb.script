@@ -52,4 +52,3 @@ SET SCHEMA PUBLIC
 INSERT INTO SPITTER VALUES(1,'maomaoxiong','123','lixiang','lixiang@qq.com',TRUE,'MALE')
 INSERT INTO SPITTER VALUES(2,'test','124','test','test@qq.com',TRUE,'FEMALE')
 INSERT INTO SPITTER VALUES(6,'test','124','test','test@qq.com',TRUE,NULL)
-INSERT INTO SPITTER VALUES(12,'test','124','test','test@qq.com',TRUE,NULL)

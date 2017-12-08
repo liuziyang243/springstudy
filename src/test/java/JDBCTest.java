@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +64,29 @@ public class JDBCTest {
 
     @Test
     public void testRepositoryDelete() {
-        spitterRepository.deleteById(3L);
+        spitterRepository.deleteById(12L);
+    }
+
+    @Test
+    public void testMetaData() {
+        String url = "jdbc:hsqldb:file:D:/Code/springstudy/mydb";
+        String user = "sa";
+        String password = "";
+
+        try {
+            Class.forName("org.hsqldb.jdbcDriver");
+            Connection conn = DriverManager.getConnection(url, user, password);
+            DatabaseMetaData mrs = conn.getMetaData();
+            System.out.println("MaxConnection:" + mrs.getMaxConnections());
+            System.out.println("MaxStatements:" + mrs.getMaxStatements());
+            System.out.println("JDBC version:" + mrs.getJDBCMajorVersion() + "." + mrs.getJDBCMinorVersion());
+            ResultSet rs = mrs.getTables(null, null, null, new String[]{"Table"});
+            System.out.println("Support batch:" + mrs.supportsBatchUpdates());
+            while (rs.next()) {
+                System.out.println(rs.getString(3));
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
