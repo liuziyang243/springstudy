@@ -57,7 +57,7 @@ public class JdbcSpitterRepository implements OriginalSpitterRepository {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = RuntimeException.class)
-    @CacheEvict("spittleCache")
+    @CacheEvict(value = "spittleCache", key = "id")
     public void remove(long id) {
         String DELETE_SPITTER_BY_ID = "DELETE FROM PUBLIC.SPITTER WHERE ID=?";
         jdbcOperations.update(DELETE_SPITTER_BY_ID, id);
